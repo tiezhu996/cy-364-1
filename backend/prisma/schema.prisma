@@ -7,6 +7,59 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Store {
+  id        Int          @id @default(autoincrement())
+  name      String
+  address   String?
+  manager   String?
+  phone     String?
+  status    String       @default("active")
+  createdAt DateTime     @default(now())
+  stocks    Stock[]
+  alerts    StockAlert[]
+}
+
+model Sku {
+  id          Int          @id @default(autoincrement())
+  skuCode     String       @unique
+  name        String
+  spec        String?
+  barcode     String?
+  category    String?
+  unit        String       @default("件")
+  safetyStock Int          @default(10)
+  createdAt   DateTime     @default(now())
+  stocks      Stock[]
+  alerts      StockAlert[]
+}
+
+model Stock {
+  id         Int         @id @default(autoincrement())
+  storeId    Int
+  skuId      Int
+  quantity   Int         @default(0)
+  updatedAt  DateTime    @default(now())
+  store      Store       @relation(fields: [storeId], references: [id])
+  sku        Sku         @relation(fields: [skuId], references: [id])
+  alert      StockAlert?
+  @@unique([storeId, skuId])
+}
+
+model StockAlert {
+  id         Int      @id @default(autoincrement())
+  stockId    Int      @unique
+  storeId    Int
+  skuId      Int
+  currentQty Int
+  threshold  Int
+  status     String   @default("pending")
+  createdAt  DateTime @default(now())
+  resolvedAt DateTime?
+  stock      Stock    @relation(fields: [stockId], references: [id])
+  store      Store    @relation(fields: [storeId], references: [id])
+  sku        Sku      @relation(fields: [skuId], references: [id])
+}
+
 model OperationRecord {
   id         Int      @id @default(autoincrement())
   moduleName String

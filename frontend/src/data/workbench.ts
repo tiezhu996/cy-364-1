@@ -12,8 +12,8 @@ export const localFeatures: FeatureItem[] = [
     "id": 2,
     "title": "库存实时同步与预警",
     "description": "各门店库存变动实时同步，设置安全库存阈值，低于阈值时自动触发补货预警通知店长。",
-    "status": "排期中",
-    "metric": "31 单"
+    "status": "处理中",
+    "metric": "11 单待处理"
   },
   {
     "id": 3,
@@ -59,9 +59,9 @@ export const localKpis: KpiItem[] = [
   },
   {
     "label": "待处理",
-    "value": "8",
+    "value": "11",
     "trend": "需跟进",
-    "tone": "neutral"
+    "tone": "danger"
   }
 ];
 
@@ -78,9 +78,9 @@ export const operationRecords: OperationRecord[] = [
     "key": "ldstoreinventory-2",
     "name": "库存实时同步与预警",
     "owner": "管理员",
-    "status": "排期中",
-    "metric": "31 单",
-    "priority": "中"
+    "status": "处理中",
+    "metric": "11 单",
+    "priority": "高"
   },
   {
     "key": "ldstoreinventory-3",

@@ -16,12 +16,12 @@ export class OverviewController {
   }
 
   @Get("overview")
-  overview() {
+  async overview() {
     return this.overviewService.getOverview();
   }
 
   @Get("api/overview")
-  apiOverview() {
+  async apiOverview() {
     return this.overviewService.getOverview();
   }
 }
