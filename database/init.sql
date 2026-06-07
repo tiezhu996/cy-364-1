@@ -128,14 +128,16 @@ INSERT INTO stocks (store_id, sku_id, quantity, updated_at) VALUES
 (5, 10, 28, NOW());
 
 INSERT INTO stock_alerts (stock_id, store_id, sku_id, current_qty, threshold, status, created_at) VALUES
+(16, 2, 6, 8, 60, 'pending', NOW()),
+(11, 2, 1, 3, 50, 'pending', NOW()),
+(33, 4, 3, 6, 40, 'pending', NOW()),
+(13, 2, 3, 15, 40, 'pending', NOW()),
+(45, 5, 5, 2, 25, 'pending', NOW()),
 (2, 1, 2, 8, 30, 'pending', NOW()),
 (5, 1, 5, 5, 25, 'pending', NOW()),
-(11, 2, 1, 3, 50, 'pending', NOW()),
-(16, 2, 6, 8, 60, 'pending', NOW()),
-(18, 2, 8, 6, 10, 'pending', NOW()),
 (24, 3, 4, 5, 20, 'pending', NOW()),
-(29, 3, 9, 7, 12, 'pending', NOW()),
-(33, 4, 3, 6, 40, 'pending', NOW()),
-(37, 4, 7, 8, 15, 'pending', NOW()),
 (40, 4, 10, 9, 18, 'pending', NOW()),
-(45, 5, 5, 2, 25, 'pending', NOW());
+(37, 4, 7, 8, 15, 'pending', NOW()),
+(1, 1, 1, 45, 50, 'pending', NOW()),
+(29, 3, 9, 7, 12, 'pending', NOW()),
+(18, 2, 8, 6, 10, 'pending', NOW());

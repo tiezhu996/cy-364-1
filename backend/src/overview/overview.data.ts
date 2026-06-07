@@ -15,7 +15,7 @@ export const overviewData = {
       "title": "库存实时同步与预警",
       "description": "各门店库存变动实时同步，设置安全库存阈值，低于阈值时自动触发补货预警通知店长。",
       "status": "排期中",
-      "metric": "31 单"
+      "metric": "13 单"
     },
     {
       "id": 3,
@@ -79,7 +79,7 @@ export const overviewData = {
       "name": "库存实时同步与预警",
       "owner": "管理员",
       "status": "排期中",
-      "metric": "31 单",
+      "metric": "13 单",
       "priority": "中"
     },
     {

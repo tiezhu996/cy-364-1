@@ -11,8 +11,10 @@ WORKDIR /app
 ENV NODE_ENV=production
 COPY package*.json ./
 COPY prisma ./prisma
+COPY start.sh ./
+RUN chmod +x start.sh
 RUN npm install --omit=dev
 RUN npx prisma generate
 COPY --from=build /app/dist ./dist
 EXPOSE 29504
-CMD ["node", "dist/main.js"]
+CMD ["./start.sh"]

@@ -9,62 +9,72 @@ datasource db {
 
 model Store {
   id        Int          @id @default(autoincrement())
-  name      String
-  address   String?
-  manager   String?
-  phone     String?
-  status    String       @default("active")
-  createdAt DateTime     @default(now())
+  name      String       @db.VarChar(120)
+  address   String?      @db.VarChar(255)
+  manager   String?      @db.VarChar(80)
+  phone     String?      @db.VarChar(40)
+  status    String       @default("active") @db.VarChar(40)
+  createdAt DateTime     @default(now()) @map("created_at")
   stocks    Stock[]
   alerts    StockAlert[]
+
+  @@map("stores")
 }
 
 model Sku {
   id          Int          @id @default(autoincrement())
-  skuCode     String       @unique
-  name        String
-  spec        String?
-  barcode     String?
-  category    String?
-  unit        String       @default("件")
-  safetyStock Int          @default(10)
-  createdAt   DateTime     @default(now())
+  skuCode     String       @unique @map("sku_code") @db.VarChar(80)
+  name        String       @db.VarChar(120)
+  spec        String?      @db.VarChar(120)
+  barcode     String?      @db.VarChar(80)
+  category    String?      @db.VarChar(80)
+  unit        String       @default("件") @db.VarChar(20)
+  safetyStock Int          @default(10) @map("safety_stock")
+  createdAt   DateTime     @default(now()) @map("created_at")
   stocks      Stock[]
   alerts      StockAlert[]
+
+  @@map("skus")
 }
 
 model Stock {
   id         Int         @id @default(autoincrement())
-  storeId    Int
-  skuId      Int
+  storeId    Int         @map("store_id")
+  skuId      Int         @map("sku_id")
   quantity   Int         @default(0)
-  updatedAt  DateTime    @default(now())
+  updatedAt  DateTime    @default(now()) @map("updated_at")
   store      Store       @relation(fields: [storeId], references: [id])
   sku        Sku         @relation(fields: [skuId], references: [id])
   alert      StockAlert?
   @@unique([storeId, skuId])
+
+  @@map("stocks")
 }
 
 model StockAlert {
   id         Int      @id @default(autoincrement())
-  stockId    Int      @unique
-  storeId    Int
-  skuId      Int
-  currentQty Int
+  stockId    Int      @unique @map("stock_id")
+  storeId    Int      @map("store_id")
+  skuId      Int      @map("sku_id")
+  currentQty Int      @map("current_qty")
   threshold  Int
-  status     String   @default("pending")
-  createdAt  DateTime @default(now())
-  resolvedAt DateTime?
+  status     String   @default("pending") @db.VarChar(40)
+  createdAt  DateTime @default(now()) @map("created_at")
+  resolvedAt DateTime? @map("resolved_at")
   stock      Stock    @relation(fields: [stockId], references: [id])
   store      Store    @relation(fields: [storeId], references: [id])
   sku        Sku      @relation(fields: [skuId], references: [id])
+
+  @@map("stock_alerts")
 }
 
 model OperationRecord {
   id         Int      @id @default(autoincrement())
-  moduleName String
-  ownerName  String
-  status     String
-  metric     String
-  createdAt  DateTime @default(now())
+  moduleName String   @map("module_name") @db.VarChar(120)
+  ownerName  String   @map("owner_name") @db.VarChar(80)
+  status     String   @db.VarChar(40)
+  metric     String   @db.VarChar(40)
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@map("operation_records")
 }
